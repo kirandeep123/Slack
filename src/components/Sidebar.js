@@ -18,9 +18,13 @@ import { db } from "../firebase";
 import React from "react";
 import styled from "styled-components";
 import SidebarOption from './SidebarOption';
+import {auth} from "../firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function Sidebar() {
   const [channels, loading, errors] = useCollection(db.collection('rooms'))
+
+  const [user] = useAuthState(auth);
 
   console.log(channels)
   return (
@@ -30,7 +34,7 @@ function Sidebar() {
           <h2>InterviewJs</h2>
           <h3>
             <FiberManualRecordIcon />
-            Kirandeep kaur
+            {user?.displayName}
           </h3>
         </SidebarInfo>
         <CreateIcon />
